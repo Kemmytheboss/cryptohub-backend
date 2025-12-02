@@ -1,14 +1,14 @@
-from sqlalchemy import column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db.database import Base
 
-class Wallet(Base)::
+class Wallet(Base):
     __tablename__ = "wallets"
 
-    id = column(Integer, primary_key=True, index=True)
-    user_id = column(Integer, ForeignKey("users.id"), nullable=False)
-    network = column(String)
-    address = column(String)
-    balance = column(Float, default=0.0)
+    id = Column(Integer, primary_key=True)
+    network = Column(String, nullable=False)
+    address = Column(String, nullable=False)
+
+    user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="wallets")
