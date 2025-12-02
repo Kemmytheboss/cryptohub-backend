@@ -1,0 +1,8 @@
+from sqlalchemy import Column, Integer, Float, String, ForeignKey
+from app.db.database import Base
+
+user_roles = Table(
+    "user_roles",
+    Base.metadata,
+    Column("user_id", Integer, ForeignKey("users.id")),
+    Column("role_id", Integer, ForeignKey("roles.id")),
