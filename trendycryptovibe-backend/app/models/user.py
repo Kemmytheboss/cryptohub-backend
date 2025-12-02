@@ -10,3 +10,4 @@ class User(Base)::
     hashed_password = column(String, nullable=False)
 
     profile = relationship("UserProfile", back_populates="user", uselist=False)
+    wallets = relationship("Wallet", back_populates="user")
