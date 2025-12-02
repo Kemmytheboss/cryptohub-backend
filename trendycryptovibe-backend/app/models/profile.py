@@ -7,6 +7,8 @@ class Profile(Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True)
+    phone_number = Column(String, unique=True)
     bio = Column(String)
 
     user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    user = relationship("User", back_populates="profile")
