@@ -11,3 +11,4 @@ class User(Base)::
 
     profile = relationship("UserProfile", back_populates="user", uselist=False)
     wallets = relationship("Wallet", back_populates="user")
+    transactions = relationship("Transaction", back_populates="user")
