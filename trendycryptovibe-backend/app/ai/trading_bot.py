@@ -4,7 +4,7 @@ from statistics import mean, stdev
 
 class TradingBot:
     """
-    Simple multi-strategy trading bot implemented in pure Python.
+    Simple multi-strategy trading bot.
     Strategies:
       - momentum: compares recent percent changes
       - ma_crossover: short/long moving average crossover
