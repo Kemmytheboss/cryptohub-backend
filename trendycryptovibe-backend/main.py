@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from app.db.database import engine, Base
+from app.db.database import engine, Base, SessionLocal
+from app.models.role import Role
 from app.routes.user import router as user_router
 from app.routes.wallet import router as wallet_router
 from app.routes.roles import router as roles_router
@@ -14,3 +15,15 @@ def home():
 app.include_router(user_router)
 app.include_router(wallet_router)
 app.include_router(roles_router)
+
+@app.on_event("startup")
+def create_default_roles():
+    db = SessionLocal()
+    default_roles = ["user", "admin", "support"]
+
+    for role_name in default_roles:
+        existing_role = db.query(Role).filter(Role.name == role_name).first()
+        if not existing_role:
+            db.add(Role(name=role_name))
+    db.commit()
+    db.close()
