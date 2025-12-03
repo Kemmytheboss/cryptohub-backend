@@ -4,6 +4,7 @@ from app.models.role import Role
 from app.routes.user import router as user_router
 from app.routes.wallet import router as wallet_router
 from app.routes.roles import router as roles_router
+from app.routes.transactions import router as transactions_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -15,6 +16,7 @@ def home():
 app.include_router(user_router)
 app.include_router(wallet_router)
 app.include_router(roles_router)
+app.include_router(transactions_router)
 
 @app.on_event("startup")
 def create_default_roles():

@@ -4,6 +4,7 @@ from app.db.database import get_db
 from app.models.role import Role
 from app.models.user import User
 from app.auth.jwt_handler import get_current_user
+from app.auth.permissions import admin_required
 
 router = APIRouter(prefix="/roles", tags=["Roles"])
 
@@ -43,7 +44,7 @@ def assign_role_to_user(
         raise HTTPException(status_code=404, detail="User not found")
 
     role = db.query(Role).filter(Role.name == role_name).first()
-    
+
     if not role:
         raise HTTPException(status_code=404, detail="Role not found")
 

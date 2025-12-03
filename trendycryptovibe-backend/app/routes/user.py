@@ -27,6 +27,12 @@ def register_user(data: UserCreate, db: Session = Depends(get_db)):
 
     profile = Profile(user_id=new_user.id, username=data.email.split("@")[0])
     db.add(profile)
+    admin_role = db.query(Role).filter(Role.name == "admin").first()
+    new_user.roles.append(admin_role)
+    default_role = db.query(Role).filter(Role.name == "user").first()
+    new_user.roles.append(default_role)
+
+
 
     networks = ["BTC", "ETH", "BSC", "TRON"]
     for net in networks:
