@@ -6,6 +6,7 @@ from app.routes.wallet import router as wallet_router
 from app.routes.roles import router as roles_router
 from app.routes.transactions import router as transactions_router
 from app.routes.predict import router as predict_router
+from app.routes.trading_bot import router as trading_bot_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -19,6 +20,7 @@ app.include_router(wallet_router)
 app.include_router(roles_router)
 app.include_router(transactions_router)
 app.include_router(predict_router)
+app.include_router(trading_bot_router)
 
 @app.on_event("startup")
 def create_default_roles():

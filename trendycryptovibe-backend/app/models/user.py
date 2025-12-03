@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from app.db.database import Base
+from app.models.user_role import user_roles  
 
 class User(Base):
     __tablename__ = "users"
@@ -12,4 +13,9 @@ class User(Base):
     profile = relationship("Profile", uselist=False, back_populates="user")
     wallets = relationship("Wallet", back_populates="user")
     transactions = relationship("Transaction", back_populates="user")
-    roles = relationship("Role", secondary="user_roles", back_populates="users")
+
+    roles = relationship(
+        "Role",
+        secondary=user_roles,
+        back_populates="users"
+    )

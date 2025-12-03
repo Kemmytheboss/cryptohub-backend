@@ -1,4 +1,3 @@
-# app/routes/trading_bot.py
 from fastapi import APIRouter, Body
 from typing import List, Dict, Any
 from app.ai.trading_bot import TradingBot
@@ -17,6 +16,7 @@ def get_signal(prices: Dict[str, List[float]] = Body(...)):
     Returns combined signal and details.
     """
     prices_list = prices.get("prices") or prices.get("data") or []
+
     if not isinstance(prices_list, list) or len(prices_list) == 0:
         return {"error": "Provide a non-empty list under 'prices'."}
 
@@ -38,4 +38,19 @@ def run_backtest(payload: Dict[str, Any] = Body(...)):
     initial_capital = float(payload.get("initial_capital", 1000.0))
     fee_pct = float(payload.get("fee_pct", 0.0))
 
-    if not prices or len(prices) <
+    # FIXED CONDITION
+    if not isinstance(prices, list) or len(prices) == 0:
+        return {"error": "Provide a non-empty list under 'prices'."}
+
+    # Run backtest from the bot class
+    result = bot.backtest(
+        prices=prices,
+        initial_capital=initial_capital,
+        fee_pct=fee_pct,
+    )
+
+    return {
+        "initial_capital": initial_capital,
+        "fee_pct": fee_pct,
+        "result": result
+    }

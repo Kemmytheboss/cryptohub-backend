@@ -1,10 +1,11 @@
 from app.ai.predictor import prediction
 from fastapi import APIRouter
+from typing import List
 
-router = APIRouter(prefix='/predict', tags["AI"])
+router = APIRouter(prefix='/predict', tags=["AI"])
 
 @router.post("/")
-def predict_price(prices: list[float])
+def predict_price(prices: List[float]):
     """
     Send a list of last market prices:
     example:
@@ -14,4 +15,3 @@ def predict_price(prices: list[float])
     """
     result = siple_prediction(prices)
     return{"signal": result}
-    
